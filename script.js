@@ -1,3 +1,4 @@
+import { html2canvas } from "./html2canvas.js";
 ! function ( e )
 {
   "function" == typeof define && define.amd ? define( e ) : e()
