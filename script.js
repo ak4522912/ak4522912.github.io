@@ -593,7 +593,7 @@
       event: "elementSelected",
       selector: t,
       display: e.tagName,
-      dom:document.querySelector(t),
+      dom:e,
       breadcrumb: ue( e ),
       innerHTML: e.innerHTML,
       attributes: ae( e )
