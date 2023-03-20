@@ -291,7 +291,9 @@
       selector: n
     } ) : t
   }
-
+function getElementByXpath(path) {
+    return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  }
   function q( e )
   {
     window.parent.postMessage( e, window.EXP_PLATFORM_ORIGIN || "*" )
