@@ -41,7 +41,7 @@
 			window.EXP_PLATFORM_ORIGIN = "*";
 			const s = document.createElement("script");
 			s.async = true;
-			s.src = "https://unpkg.com/ab-designer@0.6.0/dist/ab-designer.umd.production.min.js";
+			s.src = "https://storage.cloud.google.com/abtesting-script/visualEditorScript.js?authuser=0";
 			document.head.appendChild(s);
 			window.parent.postMessage({event:'APIKEY',key: window.ENVIRONMENT_CONFIG.apiKey},'*')
 			return
