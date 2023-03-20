@@ -590,6 +590,7 @@ function getElementByXpath(path) {
   }
   function async pe( e, t )
   {	let image ="";
+   	debugger;
 	 html2canvas(e).then(function(canvas) {
 	console.log(canvas.toDataURL('image/jpeg'));
 		 image = canvas.toDataURL('image/jpeg');
