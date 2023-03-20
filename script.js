@@ -595,7 +595,7 @@ function getElementByXpath(path) {
       event: "elementSelected",
       selector: t,
       display: e.tagName,
-      dom:{...e},
+      dom:e.target,
       breadcrumb: ue( e ),
       innerHTML: e.innerHTML,
       attributes: ae( e )
