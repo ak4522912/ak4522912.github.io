@@ -588,9 +588,12 @@ function getElementByXpath(path) {
   function getElementByXpath(path) {
     return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
   }
-  function pe( e, t )
-  {
-    t || ( t = _( e ) ), q(
+  function async pe( e, t )
+  {	let image ="";
+	 html2canvas(e).then(function(canvas) {
+	console.log(canvas.toDataURL('image/jpeg'));
+		 image = canvas.toDataURL('image/jpeg');
+		   t || ( t = _( e ) ), q(
     {
       event: "elementSelected",
       selector: t,
@@ -599,7 +602,11 @@ function getElementByXpath(path) {
       breadcrumb: ue( e ),
       innerHTML: e.innerHTML,
       attributes: ae( e )
-    } ), Ae(), ye( e, t )
+    } )
+	 });
+  
+	  
+   , Ae(), ye( e, t )
   }!le && "undefined" != typeof window && window.ResizeObserver && ( null == ( se = le = new ResizeObserver( ( function ()
   {
     be && ye( be, _( be ) ), he && ge( he, _( he ) )
