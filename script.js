@@ -10,7 +10,8 @@
     },
     n = new Map,
     r = new Set;
-function i( e )
+
+  function i( e )
   {
     var t = n.get( e );
     return t || n.set( e, t = {
@@ -582,10 +583,8 @@ function i( e )
     }
     else e.style.display = "none"
   }
-  function getImage(elem) {
-    html2canvas(elem).then(function(canvas) {
-        return(canvas.toDataURL('image/jpeg'))
-    
+  function getElementByXpath(path) {
+    return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
   }
   function pe( e, t )
   {
