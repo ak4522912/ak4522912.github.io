@@ -37,9 +37,14 @@
 			apiKey: 'd5fab06314bc1fdf935423b872d01cb4f3c578ddfbfa8a6a544a6d83dccae0e3',
 		}
 </script>
-	<script>
-		
-		( () => {
+	
+<script>
+	(() => {
+			window.EXP_PLATFORM_ORIGIN = "*";
+			const s = document.createElement("script");
+			s.async = true;
+// 			s.src = "https://storage.cloud.google.com/abtesting-script/visualEditorScript.js?authuser=0";
+			s.innerHTML= "( () => {
     window.apiRoute  = 'https://abtesting-sit.com/auth';
     if(document.URL.includes('abTestingVisualDesigner')) {
       return;
@@ -916,16 +921,7 @@
          // n.push(r.revert)
      }))
  }
- })();
-		
-		
-	</script>
-<script>
-	(() => {
-			window.EXP_PLATFORM_ORIGIN = "*";
-			const s = document.createElement("script");
-			s.async = true;
-			s.src = "https://storage.cloud.google.com/abtesting-script/visualEditorScript.js?authuser=0";
+ })();"
 			document.head.appendChild(s);
 			window.parent.postMessage({event:'APIKEY',key: window.ENVIRONMENT_CONFIG.apiKey},'*')
 			return
