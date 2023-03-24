@@ -46,13 +46,13 @@
     request.onupgradeneeded = function (event) {
       DB = event.target.result;
       DB.createObjectStore("track_events", 
-      // {
-      //   keyPath: "id",
-      //   autoIncrement: true,
-      // }
-      
+      {
+        keyPath: "id",
+        autoIncrement: true,
+      }
       );
     };
+
     request.onsuccess = () => resolve(request.result);
     request.onerror = (e) => reject(e);
   });
@@ -244,6 +244,7 @@
             e.target.result.length &&
             e.target.result.length > 0
           ) {
+            const payloadWoId = e.target.result.map(({ id, ...item }) => item);
             fetch(window.apiRoute + "/gateway/public/v1/event/track", {
               method: "post",
               headers: {
@@ -258,7 +259,7 @@
                 actionTime: Date.now(),
                 versionId: versionId,
                 customerIdentifier: identifier,
-                events: e.target.result,
+                events: payloadWoId,
               }),
             })
               .then((responseJson) => {
