@@ -245,7 +245,7 @@
             e.target.result.length > 0
           ) {
             const payloadWoId = e.target.result.map(({ id, ...item }) => item);
-            fetch(window.apiRoute + "/gateway/public/v1/event/track", {
+            fetch(window.apiRoute + "/gateway/public/v1/bulk/event/track", {
               method: "post",
               headers: {
                 apiKey: window.ENVIRONMENT_CONFIG.apiKey,
