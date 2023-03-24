@@ -256,7 +256,7 @@
                 pageUrl: url,
                 expId: experimentId,
                 variantId: variants[0].id,
-                actionTime: Number(Date.now().toString().spice(0,10)),
+                actionTime: Number(Date.now().toString().slice(0,10)),
                 versionId: versionId,
                 customerIdentifier: identifier,
                 events: payloadWoId,
