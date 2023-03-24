@@ -183,9 +183,9 @@
         return data.json();
       })
       .then(function (res) {
-        console.log(res.data);
-        experimentId = res.data.id;
-        identifier = res.data.identifier;
+        // console.log(res.data);
+        // experimentId = res.data.id;
+        // identifier = res.data.identifier;
         if (res.message) {
           return;
         }
@@ -218,6 +218,7 @@
   function trackEvents(res) {
     //console.log(res);
     let identifier = res.identifier;
+    let experimentId = res.id;
     setCookie("identifier", identifier, 3);
     let variants = res.variantInfos;
     let variant = JSON.parse(variants[0].variantDetail);
