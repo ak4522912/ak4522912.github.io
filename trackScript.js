@@ -303,7 +303,7 @@
               eventType: 1,
               metadata: {
                 goalId: goal.id,
-                actionTime: Number(Date.now().toString().sice(0,10)),
+                actionTime: Number(Date.now().toString().slice(0,10)),
               },
             };
             migrate(data, "track_events");
