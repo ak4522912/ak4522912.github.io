@@ -1,5 +1,5 @@
 (() => {
-    var experimentId;
+  var experimentId;
   window.apiRoute = "https://abtesting-sit.com/auth";
   if (document.URL.includes("abTestingVisualDesigner")) {
     return;
@@ -180,12 +180,12 @@
       }),
     })
       .then(function (data) {
-        console.log(data.json());
-       experimentId = data.json().id;
-       identifier = data.json().identifier;
         return data.json();
       })
       .then(function (res) {
+        console.log(res.data);
+        experimentId = res.data.id;
+        identifier = res.data.identifier;
         if (res.message) {
           return;
         }
@@ -249,7 +249,7 @@
               body: JSON.stringify({
                 experimentKey: null,
                 pageUrl: url,
-                expId:experimentId,
+                expId: experimentId,
                 variantId: variants[0].id,
                 actionTime: Date.now(),
                 versionId: versionId,
