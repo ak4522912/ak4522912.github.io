@@ -256,7 +256,7 @@
                 pageUrl: url,
                 expId: experimentId,
                 variantId: variants[0].id,
-                actionTime: Number(Date.now().toString().slice(0,10)),
+                actionTime: Date.now(),
                 versionId: versionId,
                 customerIdentifier: identifier,
                 events: payloadWoId,
@@ -303,7 +303,7 @@
               eventType: 1,
               metadata: {
                 goalId: goal.id,
-                actionTime: Date.now(),
+                actionTime: Number(Date.now().toString().sice(0,10)),
               },
             };
             migrate(data, "track_events");
