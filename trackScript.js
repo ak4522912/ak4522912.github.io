@@ -1,4 +1,5 @@
 (() => {
+  var experimentId;
   window.apiRoute = "https://abtesting-sit.com/auth";
   if (document.URL.includes("abTestingVisualDesigner")) {
     return;
@@ -44,10 +45,13 @@
     const request = indexedDB.open("batch_calls", 1);
     request.onupgradeneeded = function (event) {
       DB = event.target.result;
-      DB.createObjectStore("track_events", {
-        keyPath: "id",
-        autoIncrement: true,
-      });
+      DB.createObjectStore("track_events", 
+      // {
+      //   keyPath: "id",
+      //   autoIncrement: true,
+      // }
+      
+      );
     };
     request.onsuccess = () => resolve(request.result);
     request.onerror = (e) => reject(e);
