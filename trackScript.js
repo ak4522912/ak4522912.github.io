@@ -180,8 +180,9 @@
       }),
     })
       .then(function (data) {
-       experimentId = data.JSON.id;
-       identifier = data.JSON.identifier;
+        console.log(data.json());
+       experimentId = data.json().id;
+       identifier = data.json().identifier;
         return data.json();
       })
       .then(function (res) {
