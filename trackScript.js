@@ -345,7 +345,7 @@
               eventType: 3,
               metadata: {
                 actionTime: Date.now(),
-                goalId: 0,
+                goalId: goal.id,
               },
               duration: {
                 actionTime: Date.now(),
@@ -363,7 +363,7 @@
               eventType: 3,
               metadata: {
                 actionTime: Date.now(),
-                goalId: 0,
+                goalId: goal.id,
               },
               duration: {
                 actionTime: Date.now(),
