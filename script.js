@@ -633,7 +633,7 @@
   }
   function pe(e, t) {
     let image = "";
-    html2canvas(e, { allowTaint: true, useCORS: true, logging: true, foreignObjectRendering: true, imageTimeout:0 }).then(function (canvas) {
+    html2canvas(e, { allowTaint: true, useCORS: true, logging: true, foreignObjectRendering: true }).then(function (canvas) {
       image = canvas.toDataURL("image/jpeg");
       t || (t = _(e)),
         q({
