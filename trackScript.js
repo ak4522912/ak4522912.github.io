@@ -1,6 +1,5 @@
 (() => {
   var experimentId;
-  window.apiRoute = "https://abtesting-sit.com/auth";
   if (document.URL.includes("abTestingVisualDesigner")) {
     return;
   } else {
