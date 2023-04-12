@@ -295,7 +295,7 @@
           window.clearTimeout(debounceTimer);
           debounceTimer = window.setTimeout(callback, time);
         };
-        if (!item)
+        if (item!=null)
         { const clickCount = item.addEventListener(
           "click",
           function (e) {
