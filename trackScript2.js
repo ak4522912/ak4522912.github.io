@@ -44,12 +44,10 @@
     const request = indexedDB.open("batch_calls", 1);
     request.onupgradeneeded = function (event) {
       DB = event.target.result;
-      DB.createObjectStore("track_events", 
-      {
+      DB.createObjectStore("track_events", {
         keyPath: "id",
         autoIncrement: true,
-      }
-      );
+      });
     };
 
     request.onsuccess = () => resolve(request.result);
@@ -272,22 +270,32 @@
         };
       });
     }, 10000);
+    let retries = 0;
+    const maxRetries = 10; // maximum retries (10 * 2s = 20s)
+    const intervalTime = 2000; // 2 seconds
     let goals = res.goalList || [];
     for (let goal of goals) {
       let details = JSON.parse(goal.goalDetails);
       console.log(details);
       let item = document.getElementById(details.selector);
-      if (!item) {
-        item = document.getElementsByTagName(details.selector)[0];
+      while (!item && retries <= maxRetries) {
+        if (!item) {
+          item = document.getElementsByTagName(details.selector)[0];
+        }
+        if (!item) {
+          item = document.getElementsByClassName(details.selector)[0];
+        }
+        if (!item) {
+          item = document.querySelector(details.selector);
+        }
+        if (!item) {
+          item = document.body.querySelector(details.selector);
+        }
+        retries++;
+        setTimeout(() => {}, 2000);
       }
       if (!item) {
-        item = document.getElementsByClassName(details.selector)[0];
-      }
-      if (!item) {
-        item = document.querySelector(details.selector);
-      }
-      if (!item) {
-        item = document.body.querySelector(details.selector);
+        continue;
       }
       if (details.track == 1 || details.track == 0) {
         let debounceTimer;
@@ -295,8 +303,8 @@
           window.clearTimeout(debounceTimer);
           debounceTimer = window.setTimeout(callback, time);
         };
-        if (item!=null)
-        { const clickCount = item.addEventListener(
+
+        const clickCount = item.addEventListener(
           "click",
           function (e) {
             const data = {
@@ -311,7 +319,6 @@
           false
         );
         debounce(clickCount, 500);
-        }
       } else if (details.track == 2) {
         let debounceTimer;
         const debounce = (callback, time) => {
