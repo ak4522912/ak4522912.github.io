@@ -1,39 +1,12 @@
-(() => {
+const trackScript = () => {
   var experimentId;
-//   var previousUrl = "";
-//   var observer = new MutationObserver(function (mutations) {
-//     if (location.href !== previousUrl) {
-//       previousUrl = location.href;
-//       console.log(`URL changed to ${location.href}`);
-//     }
-//   });
-//   addEventListener("beforeunload", (event) => {console.log("beforeunload")});
-// onbeforeunload = (event) => {console.log("event")};
-  
-  window.addEventListener("load", function () {
-  let oldHref = document.location.href,
-    bodyDOM = document.querySelector("body");
-  function checkModifiedBody() {
-    let tmp = document.querySelector("body");
-    if (tmp != bodyDOM) {
-      bodyDOM = tmp;
-      observer.observe(bodyDOM, config);
-    }
-  }
-  const observer = new MutationObserver(function (mutations) {
-    if (oldHref != document.location.href) {
-      oldHref = document.location.href;
-      console.log("the location href is changed!");
-      window.requestAnimationFrame(checkModifiedBody)
+  var previousUrl = "";
+  var observer = new MutationObserver(function (mutations) {
+    if (location.href !== previousUrl) {
+      previousUrl = location.href;
+      console.log(`URL changed to ${location.href}`);
     }
   });
-  const config = {
-    childList: true,
-    subtree: true
-  };
-  observer.observe(bodyDOM, config);
-}, false);
-  
   if (document.URL.includes("abTestingVisualDesigner")) {
     return;
   } else {
@@ -1230,4 +1203,25 @@
       // n.push(r.revert)
     });
   }
-})();
+};
+trackScript();
+const watchHistoryEvents = () => {
+  const { pushState, replaceState } = window.history;
+
+  window.history.pushState = function (...args) {
+    pushState.apply(window.history, args);
+    window.dispatchEvent(new Event("pushState"));
+  };
+
+  window.history.replaceState = function (...args) {
+    replaceState.apply(window.history, args);
+    window.dispatchEvent(new Event("replaceState"));
+  };
+
+  window.addEventListener("popstate", () => console.log("popstate event"));
+  window.addEventListener("replaceState", () =>
+    console.log("replaceState event")
+  );
+  window.addEventListener("pushState", () => console.log("pushState event"));
+};
+watchHistoryEvents();
