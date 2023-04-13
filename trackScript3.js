@@ -1,4 +1,4 @@
-const trackGoalsScript = () => {
+const trackGoalScript = () => {
   var experimentId;
   var previousUrl = "";
   var observer = new MutationObserver(function (mutations) {
@@ -1204,7 +1204,7 @@ const trackGoalsScript = () => {
     });
   }
 };
-trackGoalsScript();
+trackGoalScript();
 const watchHistoryEvents = () => {
   const { pushState, replaceState } = window.history;
 
@@ -1218,10 +1218,8 @@ const watchHistoryEvents = () => {
     window.dispatchEvent(new Event("replaceState"));
   };
 
-  window.addEventListener("popstate", () => console.log("popstate event"));
-  window.addEventListener("replaceState", () =>
-    console.log("replaceState event")
-  );
-  window.addEventListener("pushState", () => console.log("pushState event"));
+  window.addEventListener("popstate", () => trackGoalScript());
+  window.addEventListener("replaceState", () => trackGoalScript());
+  window.addEventListener("pushState", () => trackGoalScript());
 };
 watchHistoryEvents();
