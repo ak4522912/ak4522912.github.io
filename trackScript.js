@@ -1197,7 +1197,7 @@ const trackGoalScriptABTest = () => {
     });
   }
 };
-trackGoalScript();
+trackGoalScriptABTest();
 const watchHistoryEvents = () => {
   const { pushState, replaceState } = window.history;
 
