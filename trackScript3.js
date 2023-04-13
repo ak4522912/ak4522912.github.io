@@ -1,4 +1,4 @@
-const trackScript = () => {
+const trackGoalsScript = () => {
   var experimentId;
   var previousUrl = "";
   var observer = new MutationObserver(function (mutations) {
