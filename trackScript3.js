@@ -1204,7 +1204,7 @@ const trackGoalsScript = () => {
     });
   }
 };
-trackScript();
+trackGoalsScript();
 const watchHistoryEvents = () => {
   const { pushState, replaceState } = window.history;
 
