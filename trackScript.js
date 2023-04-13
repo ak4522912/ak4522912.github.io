@@ -1,4 +1,4 @@
-(() => {
+const trackGoalScriptABTest = () => {
   var experimentId;
   if (document.URL.includes("abTestingVisualDesigner")) {
     return;
@@ -44,12 +44,10 @@
     const request = indexedDB.open("batch_calls", 1);
     request.onupgradeneeded = function (event) {
       DB = event.target.result;
-      DB.createObjectStore("track_events", 
-      {
+      DB.createObjectStore("track_events", {
         keyPath: "id",
         autoIncrement: true,
-      }
-      );
+      });
     };
 
     request.onsuccess = () => resolve(request.result);
@@ -1198,4 +1196,23 @@
       // n.push(r.revert)
     });
   }
-})();
+};
+trackGoalScript();
+const watchHistoryEvents = () => {
+  const { pushState, replaceState } = window.history;
+
+  window.history.pushState = function (...args) {
+    pushState.apply(window.history, args);
+    window.dispatchEvent(new Event("pushState"));
+  };
+
+  window.history.replaceState = function (...args) {
+    replaceState.apply(window.history, args);
+    window.dispatchEvent(new Event("replaceState"));
+  };
+
+  window.addEventListener("popstate", () => trackGoalScriptABTest());
+  window.addEventListener("replaceState", () => trackGoalScriptABTest());
+  window.addEventListener("pushState", () => trackGoalScriptABTest());
+};
+watchHistoryEvents();
