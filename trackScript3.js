@@ -1,12 +1,14 @@
 (() => {
   var experimentId;
-  var previousUrl = "";
-  var observer = new MutationObserver(function (mutations) {
-    if (location.href !== previousUrl) {
-      previousUrl = location.href;
-      console.log(`URL changed to ${location.href}`);
-    }
-  });
+//   var previousUrl = "";
+//   var observer = new MutationObserver(function (mutations) {
+//     if (location.href !== previousUrl) {
+//       previousUrl = location.href;
+//       console.log(`URL changed to ${location.href}`);
+//     }
+//   });
+  addEventListener("beforeunload", (event) => {console.log("beforeunload")});
+onbeforeunload = (event) => {console.log("event")};
   if (document.URL.includes("abTestingVisualDesigner")) {
     return;
   } else {
