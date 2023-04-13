@@ -7,8 +7,33 @@
 //       console.log(`URL changed to ${location.href}`);
 //     }
 //   });
-  addEventListener("beforeunload", (event) => {console.log("beforeunload")});
-onbeforeunload = (event) => {console.log("event")};
+//   addEventListener("beforeunload", (event) => {console.log("beforeunload")});
+// onbeforeunload = (event) => {console.log("event")};
+  
+  window.addEventListener("load", function () {
+  let oldHref = document.location.href,
+    bodyDOM = document.querySelector("body");
+  function checkModifiedBody() {
+    let tmp = document.querySelector("body");
+    if (tmp != bodyDOM) {
+      bodyDOM = tmp;
+      observer.observe(bodyDOM, config);
+    }
+  }
+  const observer = new MutationObserver(function (mutations) {
+    if (oldHref != document.location.href) {
+      oldHref = document.location.href;
+      console.log("the location href is changed!");
+      window.requestAnimationFrame(checkModifiedBody)
+    }
+  });
+  const config = {
+    childList: true,
+    subtree: true
+  };
+  observer.observe(bodyDOM, config);
+}, false);
+  
   if (document.URL.includes("abTestingVisualDesigner")) {
     return;
   } else {
