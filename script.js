@@ -635,6 +635,9 @@
     let image = "";
     html2canvas(e, { allowTaint: true, useCORS: true,}).then(function (canvas) {
       image = canvas.toDataURL("image/jpeg");
+      console.log("image",image);
+      console.log("image2",canvas.toDataURL("image/png"));
+      console.log("image3",canvas.toDataURL("image/svg"));
       t || (t = _(e)),
         q({
           event: "elementSelected",
