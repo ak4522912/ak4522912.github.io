@@ -633,7 +633,7 @@
   }
   function pe(e, t) {
     let image = "";
-    html2canvas(e, { allowTaint: true, useCORS: true,proxy:{document.URL}).then(function (canvas) {
+    html2canvas(e, { allowTaint: true, useCORS: true,proxy:{"https://jiomart.com/"}).then(function (canvas) {
       image = canvas.toDataURL("image/jpeg");
       console.log("image",image);
       console.log("image2",canvas.toDataURL("image/png"));
