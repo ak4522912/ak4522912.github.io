@@ -631,23 +631,161 @@
       null
     ).singleNodeValue;
   }
-  function pe(e, t) {
-    let image = "";
-    html2canvas(e, { allowTaint: true, useCORS: true,}).then(function (canvas) {
-      image = canvas.toDataURL("image/jpeg");
-      t || (t = _(e)),
-        q({
-          event: "elementSelected",
-          selector: t,
-          display: e.tagName,
-          dom: image,
-          breadcrumb: ue(e),
-          innerHTML: e.innerHTML,
-          attributes: ae(e),
-        }),
-        Ae(),
-        ye(e, t);
+
+  function html2CanvasHelper(e, image, duplicateNode = null) {
+    let pureWhite = true;
+
+    return new Promise((resolve) => {
+      html2canvas(duplicateNode, {
+        allowTaint: true,
+        useCORS: false,
+        logging: false,
+      })
+        .then(async (canvas1) => {
+          if (duplicateNode !== e) {
+            document.body.removeChild(duplicateNode);
+          }
+
+          const imgData = canvas1
+            .getContext("2d")
+            .getImageData(0, 0, canvas1.width, canvas1.height);
+          image = canvas1.toDataURL("image/png");
+
+          for (let i = 0; i < imgData.data.length; i += 4) {
+            const red = imgData.data[i];
+            const green = imgData.data[i + 1];
+            const blue = imgData.data[i + 2];
+            if (red !== 255 || green !== 255 || blue !== 255) {
+              pureWhite = false;
+            }
+          }
+
+          if (pureWhite) {
+            let canvas2 = await html2canvas(e, {
+              allowTaint: true,
+              useCORS: true,
+              backgroundColor: "black",
+            });
+            image = canvas2.toDataURL("image/png");
+          }
+
+          resolve(image);
+        })
+        .catch((err) => {
+          resolve(image);
+        });
     });
+  }
+
+  function pe(e, t) {
+    let loader = document.createElement("div");
+    loader.classList.add("abtesting-loader");
+    loader.style.cssText = `
+    position: fixed;
+  z-index: 999;
+  height: 100%;
+  width: 100%;
+  background-color:gray;
+  opacity:0.5;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+`;
+
+    let spinner = document.createElement("div");
+    spinner.classList.add("abtesting-spinner");
+
+    spinner.style.cssText = `
+    border: 8px solid white;
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 1s linear infinite;
+    `;
+    loader.appendChild(spinner);
+    document.body.appendChild(loader);
+
+    let image = "";
+    let allImages = e.getElementsByTagName("img");
+    let only1Image = e.tagName === "IMG";
+    let duplicateNode = null;
+
+    // 1. Direct image tag selection
+    // 2. Image with anchor tag
+    // 3. Image inside button
+    if (allImages.length === 0 && !only1Image) {
+      duplicateNode = e;
+    } else if (only1Image) {
+      const spanImageNameNode = document.createElement("span");
+      const imgSrcArr = e.src.split("/");
+      const imgName = imgSrcArr[imgSrcArr.length - 1];
+
+      spanImageNameNode.innerText = `Image: ${
+        e.alt && e.alt.length ? e.alt : imgName
+      }`;
+      spanImageNameNode.style.marginLeft = "4px";
+      spanImageNameNode.style.marginRight = "4px";
+      document.body.appendChild(spanImageNameNode);
+      duplicateNode = spanImageNameNode;
+    } else if (allImages.length) {
+      duplicateNode = e.cloneNode(true);
+      duplicateNode.querySelectorAll("img").forEach((img) => {
+        const imgSrcArr = img.src.split("/");
+        const imgName = imgSrcArr[imgSrcArr.length - 1];
+        const spanImageNameNode = document.createElement("span");
+        spanImageNameNode.innerText = `Image: ${
+          img.alt && img.alt.length ? img.alt : imgName
+        }`;
+        spanImageNameNode.style.marginLeft = "4px";
+        spanImageNameNode.style.marginRight = "10px";
+        img.parentNode.replaceChild(spanImageNameNode, img);
+      });
+
+      document.body.appendChild(duplicateNode);
+    }
+
+    html2CanvasHelper(e, image, duplicateNode)
+      .then((finalImg) => {
+        document.body.removeChild(loader);
+        t || (t = _(e)),
+          q({
+            event: "elementSelected",
+            selector: t,
+            display: e.tagName,
+            dom: finalImg,
+            breadcrumb: ue(e),
+            innerHTML: e.innerHTML,
+            attributes: ae(e),
+          }),
+          Ae(),
+          ye(e, t);
+      })
+      .catch((err) => {
+        document.body.removeChild(loader);
+
+        // Since we don't want the visual editor to stop working due to issue in generating the goal's image,
+        // added the same code to in catch block as well to open the element editing box
+        t || (t = _(e)),
+          q({
+            event: "elementSelected",
+            selector: t,
+            display: e.tagName,
+            dom: finalImg,
+            breadcrumb: ue(e),
+            innerHTML: e.innerHTML,
+            attributes: ae(e),
+          }),
+          Ae(),
+          ye(e, t);
+      })
+      .finally(() => {});
   }
   !le &&
     "undefined" != typeof window &&
