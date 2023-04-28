@@ -222,7 +222,7 @@ const trackGoalScriptABTest = () => {
     console.error("Request timed out");
     // Abort the fetch request if it hasn't completed after the timeout period
     abortController.abort();
-  }, 1);
+  }, 50);
 
   function trackEvents(res) {
     //console.log(res);
