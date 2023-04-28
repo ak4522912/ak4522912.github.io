@@ -1,4 +1,6 @@
 const trackGoalScriptABTest = () => {
+  // Create an AbortController instance to enable request abortion
+  const abortController = new AbortController();
   var experimentId;
   if (document.URL.includes("abTestingVisualDesigner")) {
     return;
@@ -215,8 +217,7 @@ const trackGoalScriptABTest = () => {
         }
       });
   }
-  // Create an AbortController instance to enable request abortion
-  const abortController = new AbortController();
+
   setTimeout(function () {
     console.error("Request timed out");
     // Abort the fetch request if it hasn't completed after the timeout period
