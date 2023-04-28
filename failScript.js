@@ -159,6 +159,7 @@ const trackGoalScriptABTest = () => {
       deviceType;
     fetch(window.apiRoute + "/gateway/public/v1/init", {
       method: "post",
+      signal: abortController.signal,
       headers: {
         apiKey: window.ENVIRONMENT_CONFIG.apiKey,
         "Content-Type": "application/json",
