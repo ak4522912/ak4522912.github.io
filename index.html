@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/statsig-js/build/statsig-prod-web-sdk.min.js"></script>
+    <script>
+            const init = ()=>{
+            const Statsig = require("statsig-js");
+
+      // initialize returns a promise which always resolves
+      await Statsig.initialize(
+        "secret-aurtL9ttcvie0gVo5EzKixz7qvIPpfkhZyyuQO5Jys1",
+        { userID: "user123"+string(Math.random()) },
+      ).then((res=>{
+        console.log(res);
+      }))
+            }
+            init();
+      console.log(statsig.getExperiment("ab_testing_1").get("btton_size", 10));
+
+    </script>
+  </head>
+  <body>
+    <button>I'm a Button</button>
+  </body>
+</html>
