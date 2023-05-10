@@ -302,6 +302,7 @@ const trackGoalScriptABTest = () => {
           window.clearTimeout(debounceTimer);
           debounceTimer = window.setTimeout(callback, time);
         };
+         if (!item) continue;
         const clickCount = item.addEventListener(
           "click",
           function (e) {
