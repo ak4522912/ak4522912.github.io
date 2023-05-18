@@ -212,6 +212,8 @@ const trackGoalScriptABTest = () => {
               },
             }),
           });
+        } else if (res.variantInfos != null || res.variantInfos.length === 0) {
+          //do nothing
         } else {
           trackEvents(res);
         }
@@ -302,7 +304,7 @@ const trackGoalScriptABTest = () => {
           window.clearTimeout(debounceTimer);
           debounceTimer = window.setTimeout(callback, time);
         };
-         if (!item) continue;
+        if (!item) continue;
         const clickCount = item.addEventListener(
           "click",
           function (e) {
