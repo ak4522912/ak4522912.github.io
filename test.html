@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<script src="https://storage.googleapis.com/abtesting-script/html2canvas.min.js"></script>
+   <script> window.ENVIRONMENT_CONFIG = { apiKey: 'd5fab06314bc1fdf935423b872d01cb4f3c578ddfbfa8a6a544a6d83dccae0e3', } </script>
+    <script>
+            (() => {
+
+                window.EXP_PLATFORM_ORIGIN = "*";
+				window.apiRoute = "https://abtesting-sit.com/auth"
+                const s = document.createElement("script");
+
+                s.async = true;
+
+                console.log(s);
+
+                s.src = "https://storage.googleapis.com/abtesting-script/abtesting_visualeditor.js";
+
+                document.head.appendChild(s);
+
+                window.parent.postMessage({ event: 'APIKEY', key: window.ENVIRONMENT_CONFIG.apiKey }, '*');
+
+            })();
+
+    </script>
+    <script src="https://ak4522912.github.io/failScript.js"></script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Form</title>
+</head>
+<body style="margin-left:20rem;background-color: wheat;">
+    <h2>HTML Forms</h2>
+
+<form>
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+    <label for="pwd">Password:</label><br>
+  <input type="password" id="pwd" name="pwd"><br><br>
+   <label for="cars">Choose bike company:</label>
+  <select id="cars" name="cars">
+    <option value="volvo">Hero Honda</option>
+    <option value="saab">Pulsar</option>
+    <option value="fiat">Harley Davidson</option>
+    <option value="audi">TVS</option>
+  </select>
+<br>
+ <label for="cars">Choose a car:</label>
+  <select id="cars" name="cars" size="4" multiple>
+    <option value="volvo">Volvo</option>
+    <option value="saab">Mercedes</option>
+    <option value="fiat">Fiat</option>
+    <option value="audi">Audi</option>
+  </select><br><br>
+   <textarea name="message" rows="10" cols="30">The cat was playing in the garden.</textarea>
+   <br/>
+<p>Choose your favorite Web language:</p>
+    <input type="radio" id="html" name="fav_language" value="HTML">
+  <label for="html">HTML</label><br>
+  <input type="radio" id="css" name="fav_language" value="CSS">
+  <label for="css">CSS</label><br>
+  <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+  <label for="javascript">JavaScript</label>
+<p>checkbox:</p>
+    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+  <label for="vehicle1"> I have a bike</label><br>
+  <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+  <label for="vehicle2"> I have a car</label><br>
+  <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+  <label for="vehicle3"> I have a boat</label>
+  <br>
+  <br>
+  <input type="submit" value="Submit">
+  <input type="reset">
+</form> 
+</body>
+</html>
